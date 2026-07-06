@@ -1,0 +1,101 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  color: var(--crt-green-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fieldGroup input {
+  background: var(--crt-black);
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 4px;
+  color: var(--crt-green-bright);
+  font-family: var(--mono);
+  padding: 0.45em 0.5em;
+  font-size: 0.9rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.fieldGroup input:focus {
+  outline: none;
+  border-color: var(--crt-green);
+}
+
+.systemsHeader {
+  font-size: 0.75rem;
+  color: var(--crt-green-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-top: 1px solid var(--crt-green-dim);
+  padding-top: 0.7rem;
+}
+
+.systemRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.systemRow input,
+.systemRow select {
+  background: var(--crt-black);
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 4px;
+  color: var(--crt-green-bright);
+  font-family: var(--mono);
+  padding: 0.45em 0.5em;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.systemRow input:focus,
+.systemRow select:focus {
+  outline: none;
+  border-color: var(--crt-green);
+}
+
+.removeButton {
+  background: transparent;
+  border: 1px solid var(--crt-red);
+  color: var(--crt-red);
+  border-radius: 4px;
+  width: 2.1em;
+  height: 2.1em;
+  cursor: pointer;
+  font-family: var(--mono);
+  flex-shrink: 0;
+}
+
+.addButton {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px dashed var(--crt-green-dim);
+  color: var(--crt-green);
+  border-radius: 4px;
+  padding: 0.5em 1.1em;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 0.2rem;
+}
+
+.addButton:hover {
+  border-color: var(--crt-green);
+}

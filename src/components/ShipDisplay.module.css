@@ -1,0 +1,218 @@
+.wrap {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 0.5rem 0.8rem;
+}
+
+.header {
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--crt-green-dim);
+  padding-bottom: 0.6rem;
+}
+
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mapButton {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--crt-green-dim);
+  color: var(--crt-green);
+  border-radius: 4px;
+  padding: 0.5em 1.1em;
+  font-family: var(--mono);
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.mapButton:hover {
+  border-color: var(--crt-green);
+  background: rgba(107, 255, 160, 0.08);
+}
+
+.shipName {
+  font-size: 1.4em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+}
+
+.shipMeta {
+  font-size: 0.85em;
+  color: var(--crt-green-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.2rem;
+}
+
+.systemsGrid {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.4rem;
+  align-content: start;
+  padding: 0.2rem;
+}
+
+.systemCard {
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 8px;
+  padding: 1.3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.systemCard[data-status='inactive'] {
+  border-color: var(--crt-green-dimmer);
+  opacity: 0.75;
+}
+
+.systemCard[data-status='damaged'] {
+  border-color: var(--crt-red);
+}
+
+.systemCard[data-status='unknown'] {
+  border-color: var(--crt-amber);
+}
+
+.systemName {
+  font-size: 1.15em;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+}
+
+.statusBadge {
+  margin-top: auto;
+  font-size: 0.75em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--crt-green);
+}
+
+.systemCard[data-status='inactive'] .statusBadge {
+  color: var(--crt-green-dim);
+}
+
+.systemCard[data-status='damaged'] .statusBadge {
+  color: var(--crt-red);
+}
+
+.systemCard[data-status='unknown'] .statusBadge {
+  color: var(--crt-amber);
+}
+
+.energyBar {
+  position: relative;
+  height: 0.8em;
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 3px;
+  overflow: hidden;
+  background: rgba(107, 255, 160, 0.05);
+}
+
+.energyFill {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  background: var(--crt-green);
+}
+
+.systemCard[data-status='inactive'] .energyFill {
+  background: var(--crt-green-dimmer);
+}
+
+.systemCard[data-status='damaged'] .energyFill {
+  background: var(--crt-red);
+}
+
+.systemCard[data-status='unknown'] .energyFill {
+  background: var(--crt-amber);
+}
+
+.energyValue {
+  font-size: 0.8em;
+  color: var(--crt-green-dim);
+  text-align: right;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  color: var(--crt-green-dim);
+  font-size: 1em;
+  padding: 1rem;
+}
+
+.info {
+  flex-shrink: 0;
+  max-height: 35%;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 0.9em;
+  line-height: 1.5;
+  border-top: 1px solid var(--crt-green-dim);
+  padding-top: 0.6rem;
+}
+
+.mapOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.mapModal {
+  position: relative;
+  width: 80vw;
+  height: 80vh;
+  border: 2px solid var(--crt-green);
+  border-radius: 8px;
+  background: var(--crt-black);
+  box-shadow: 0 0 40px rgba(107, 255, 160, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mapModal .mapImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.mapClose {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.8rem;
+  background: transparent;
+  border: 1px solid var(--crt-green-dim);
+  color: var(--crt-green);
+  border-radius: 4px;
+  width: 2.2em;
+  height: 2.2em;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.mapClose:hover {
+  border-color: var(--crt-red);
+  color: var(--crt-red);
+}

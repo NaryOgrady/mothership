@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { ModeButton } from '../components/ModeButton';
 import { CrewEditor } from '../components/CrewEditor';
-import { PAGE_IDS, type CrewMember, type PageContent, type PageId } from '../state/gameState';
+import { ShipEditor } from '../components/ShipEditor';
+import {
+  PAGE_IDS,
+  type CrewMember,
+  type PageContent,
+  type PageId,
+  type ShipInfo,
+} from '../state/gameState';
 import { useGameState } from '../state/useGameState';
 import styles from './GMPanel.module.css';
 
@@ -25,6 +32,10 @@ export function GMPanel() {
 
   function updateCrew(crew: CrewMember[]) {
     update({ crew });
+  }
+
+  function updateShip(ship: ShipInfo) {
+    update({ ship });
   }
 
   const tabs: { id: GMTab; label: string }[] = [
@@ -84,11 +95,19 @@ export function GMPanel() {
               </select>
             </div>
             <div className={styles.field}>
-              <label>Message</label>
+              <label>Title</label>
               <input
                 type="text"
-                value={state.alertMessage}
-                onChange={(e) => update({ alertMessage: e.target.value })}
+                value={state.alertTitle}
+                onChange={(e) => update({ alertTitle: e.target.value })}
+              />
+            </div>
+            <div className={styles.field}>
+              <label>Description</label>
+              <textarea
+                rows={3}
+                value={state.alertDescription}
+                onChange={(e) => update({ alertDescription: e.target.value })}
               />
             </div>
           </div>
@@ -104,6 +123,29 @@ export function GMPanel() {
                   onClick={() => setActivePage(id)}
                 />
               ))}
+            </div>
+          </div>
+
+          <div className={styles.section}>
+            <h2>Display</h2>
+            <div className={styles.field}>
+              <label>Default screen font size ({Math.round(state.fontScale * 100)}%)</label>
+              <input
+                type="range"
+                min={0.75}
+                max={2}
+                step={0.05}
+                value={state.fontScale}
+                onChange={(e) => update({ fontScale: Number(e.target.value) })}
+              />
+            </div>
+            <div className={styles.field}>
+              <label>Player screen orientation</label>
+              <ModeButton
+                label={state.screenFlipped ? 'Flipped 180°' : 'Normal'}
+                active={state.screenFlipped}
+                onClick={() => update((prev) => ({ screenFlipped: !prev.screenFlipped }))}
+              />
             </div>
           </div>
 
@@ -134,8 +176,31 @@ export function GMPanel() {
                   onChange={(e) => updatePage(id, { title: e.target.value })}
                 />
               </div>
+              <div className={styles.field}>
+                <label>Font size ({Math.round(state.pages[id].fontScale * 100)}%)</label>
+                <input
+                  type="range"
+                  min={0.75}
+                  max={2}
+                  step={0.05}
+                  value={state.pages[id].fontScale}
+                  onChange={(e) => updatePage(id, { fontScale: Number(e.target.value) })}
+                />
+              </div>
               {id === 'crew' ? (
                 <CrewEditor crew={state.crew} onChange={updateCrew} />
+              ) : id === 'ship' ? (
+                <>
+                  <ShipEditor ship={state.ship} onChange={updateShip} />
+                  <div className={styles.field}>
+                    <label>Info</label>
+                    <textarea
+                      rows={6}
+                      value={state.pages[id].body}
+                      onChange={(e) => updatePage(id, { body: e.target.value })}
+                    />
+                  </div>
+                </>
               ) : (
                 <div className={styles.field}>
                   <label>Body</label>

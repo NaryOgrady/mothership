@@ -7,6 +7,10 @@
   overflow: hidden;
 }
 
+.flipped {
+  transform: rotate(180deg);
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -88,6 +92,13 @@
   overflow: hidden;
 }
 
+.contentScale {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+}
+
 .mapImage {
   width: 100%;
   height: 100%;
@@ -95,32 +106,68 @@
   filter: grayscale(1) brightness(0.85) sepia(1) hue-rotate(70deg) saturate(4) contrast(1.15);
 }
 
-.alertBar {
-  flex-shrink: 0;
+.alertOverlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  width: min(88%, 900px);
+  background: var(--crt-black);
+  border-radius: 10px;
+  border: 3px solid;
+  padding: 1.2rem 2rem;
   text-align: center;
-  padding: 0.5rem;
-  border-radius: 6px;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  animation: pulse 1.4s ease-in-out infinite;
+  box-shadow:
+    0 16px 50px rgba(0, 0, 0, 0.75),
+    0 0 40px rgba(0, 0, 0, 0.5);
+  animation: alert-pulse 1.2s ease-in-out infinite;
+}
+
+.alertTitle {
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.alertDescription {
+  margin-top: 0.6rem;
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  opacity: 0.9;
 }
 
 .alertYellow {
-  border: 1px solid var(--crt-amber);
+  border-color: var(--crt-amber);
   color: var(--crt-amber);
 }
 
+.alertYellow .alertTitle {
+  text-shadow:
+    0 0 12px var(--crt-amber),
+    0 0 26px var(--crt-amber);
+}
+
 .alertRed {
-  border: 1px solid var(--crt-red);
+  border-color: var(--crt-red);
   color: var(--crt-red);
 }
 
-@keyframes pulse {
+.alertRed .alertTitle {
+  text-shadow:
+    0 0 12px var(--crt-red),
+    0 0 26px var(--crt-red);
+}
+
+@keyframes alert-pulse {
   0%,
   100% {
-    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
   50% {
-    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(1.02);
   }
 }

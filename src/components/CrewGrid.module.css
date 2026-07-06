@@ -1,6 +1,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 1.2rem;
   width: 100%;
   height: 100%;
@@ -17,6 +18,8 @@
   flex-direction: column;
   gap: 0.5rem;
   justify-content: space-between;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .cardMia {
@@ -30,13 +33,13 @@
 }
 
 .name {
-  font-size: 1.15rem;
+  font-size: 1.15em;
   font-weight: bold;
   letter-spacing: 0.05em;
 }
 
 .className {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   color: var(--crt-green-dim);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -46,17 +49,19 @@
   display: flex;
   flex-direction: row;
   gap: 0.8rem;
-  align-items: flex-start;
+  flex: 1;
+  min-height: 0;
 }
 
 .portraitWrap {
   position: relative;
   flex: 0 0 55%;
+  height: 100%;
 }
 
 .portrait {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   object-fit: cover;
   border: 1px solid var(--crt-green-dim);
   border-radius: 6px;
@@ -65,7 +70,7 @@
 
 .portraitPlaceholder {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   border: 1px dashed var(--crt-green-dimmer);
   border-radius: 6px;
 }
@@ -74,6 +79,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 0.4rem;
   min-width: 0;
 }
@@ -89,7 +95,7 @@
   border-radius: 6px;
   background: rgba(0, 0, 0, 0.8);
   font-weight: 900;
-  font-size: 1.8rem;
+  font-size: 1.8em;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -113,7 +119,7 @@
 .statRow {
   display: flex;
   justify-content: space-between;
-  font-size: 0.95rem;
+  font-size: 0.95em;
   border-top: 1px dashed var(--crt-green-dimmer);
   padding-top: 0.3rem;
 }
@@ -128,7 +134,7 @@
 }
 
 .condition {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   color: var(--crt-red);
   font-style: italic;
   margin-top: 0.8rem;
@@ -136,6 +142,6 @@
 
 .empty {
   color: var(--crt-green-dim);
-  font-size: 1rem;
+  font-size: 1em;
   padding: 1rem;
 }

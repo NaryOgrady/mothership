@@ -82,6 +82,13 @@
   border-color: var(--crt-green);
 }
 
+.field input[type='range'] {
+  background: none;
+  border: none;
+  padding: 0.4em 0;
+  accent-color: var(--crt-green);
+}
+
 .navButtons {
   display: flex;
   flex-direction: column;

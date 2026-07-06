@@ -3,6 +3,7 @@ import { CoursePlot } from '../components/CoursePlot';
 import { ModeButton } from '../components/ModeButton';
 import { InfoPage } from '../components/InfoPage';
 import { CrewGrid } from '../components/CrewGrid';
+import { ShipDisplay } from '../components/ShipDisplay';
 import { useGameState } from '../state/useGameState';
 import { PAGE_IDS } from '../state/gameState';
 import styles from './PlayerView.module.css';
@@ -28,9 +29,10 @@ function DiamondMark() {
 
 export function PlayerView() {
   const { state } = useGameState();
+  const contentFontScale = state.activePage ? state.pages[state.activePage].fontScale : state.fontScale;
 
   return (
-    <div className={`crt-screen ${styles.screen}`}>
+    <div className={`crt-screen ${styles.screen} ${state.screenFlipped ? styles.flipped : ''}`}>
       <div className={styles.header}>
         <div className={styles.headerBar}>
           <div className={styles.logo}>
@@ -51,11 +53,14 @@ export function PlayerView() {
 
       {state.alertLevel !== 'none' && (
         <div
-          className={`${styles.alertBar} ${
+          className={`${styles.alertOverlay} ${
             state.alertLevel === 'red' ? styles.alertRed : styles.alertYellow
           }`}
         >
-          {state.alertMessage}
+          <div className={styles.alertTitle}>{state.alertTitle}</div>
+          {state.alertDescription && (
+            <div className={styles.alertDescription}>{state.alertDescription}</div>
+          )}
         </div>
       )}
 
@@ -69,15 +74,19 @@ export function PlayerView() {
         </Panel>
 
         <Panel className={styles.centerPanel}>
-          {state.activePage === 'crew' ? (
-            <CrewGrid crew={state.crew} />
-          ) : state.activePage ? (
-            <InfoPage {...state.pages[state.activePage]} />
-          ) : state.mapImageUrl ? (
-            <img src={state.mapImageUrl} alt="" className={styles.mapImage} />
-          ) : (
-            <CoursePlot />
-          )}
+          <div className={styles.contentScale} style={{ fontSize: `${contentFontScale}rem` }}>
+            {state.activePage === 'crew' ? (
+              <CrewGrid crew={state.crew} />
+            ) : state.activePage === 'ship' ? (
+              <ShipDisplay ship={state.ship} info={state.pages.ship.body} />
+            ) : state.activePage ? (
+              <InfoPage {...state.pages[state.activePage]} />
+            ) : state.mapImageUrl ? (
+              <img src={state.mapImageUrl} alt="" className={styles.mapImage} />
+            ) : (
+              <CoursePlot />
+            )}
+          </div>
         </Panel>
       </div>
     </div>
