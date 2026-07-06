@@ -1,48 +1,36 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
   width: 100%;
   height: 100%;
-  align-content: start;
+  min-height: 0;
   padding: 0.4rem;
+  overflow-y: auto;
 }
 
 .card {
   border: 1px solid var(--crt-green-dim);
   border-radius: 8px;
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.5rem;
+  justify-content: space-between;
 }
 
-.cardHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
+.cardMia {
+  border-color: var(--crt-amber);
 }
 
-.portrait {
-  width: 56px;
-  height: 56px;
-  object-fit: cover;
-  border: 1px solid var(--crt-green-dim);
-  border-radius: 4px;
-  flex-shrink: 0;
-  filter: grayscale(1) brightness(0.9) sepia(1) hue-rotate(70deg) saturate(3) contrast(1.1);
-}
-
-.portraitPlaceholder {
-  width: 56px;
-  height: 56px;
-  border: 1px dashed var(--crt-green-dimmer);
-  border-radius: 4px;
-  flex-shrink: 0;
+.cardDeceased {
+  border-color: var(--crt-red);
+  filter: grayscale(0.7);
+  opacity: 0.55;
 }
 
 .name {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: bold;
   letter-spacing: 0.05em;
 }
@@ -52,6 +40,74 @@
   color: var(--crt-green-dim);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+
+.portraitWrap {
+  position: relative;
+  flex: 0 0 55%;
+}
+
+.portrait {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 6px;
+  filter: grayscale(1) brightness(0.9) sepia(1) hue-rotate(70deg) saturate(3) contrast(1.1);
+}
+
+.portraitPlaceholder {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border: 1px dashed var(--crt-green-dimmer);
+  border-radius: 6px;
+}
+
+.stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.statusOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.1;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  font-weight: 900;
+  font-size: 1.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.statusMia {
+  color: var(--crt-amber);
+  text-shadow:
+    0 0 10px var(--crt-amber),
+    0 0 18px var(--crt-amber),
+    0 2px 3px rgba(0, 0, 0, 0.9);
+}
+
+.statusDeceased {
+  color: var(--crt-red);
+  text-shadow:
+    0 0 10px var(--crt-red),
+    0 0 18px var(--crt-red),
+    0 2px 3px rgba(0, 0, 0, 0.9);
 }
 
 .statRow {
@@ -73,9 +129,9 @@
 
 .condition {
   font-size: 0.8rem;
-  color: var(--crt-green-bright);
+  color: var(--crt-red);
   font-style: italic;
-  margin-top: 0.2rem;
+  margin-top: 0.8rem;
 }
 
 .empty {

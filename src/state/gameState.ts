@@ -7,6 +7,8 @@ export interface PageContent {
   body: string;
 }
 
+export type CrewStatus = 'active' | 'mia' | 'deceased';
+
 export interface CrewMember {
   id: string;
   name: string;
@@ -16,7 +18,9 @@ export interface CrewMember {
   health: number;
   maxHealth: number;
   wounds: number;
+  maxWounds: number;
   condition: string;
+  status: CrewStatus;
 }
 
 export interface GameState {

@@ -13,7 +13,9 @@ function makeCrewMember(): CrewMember {
     health: 10,
     maxHealth: 10,
     wounds: 0,
+    maxWounds: 2,
     condition: '',
+    status: 'active',
   };
 }
 
@@ -91,6 +93,14 @@ export function CrewEditor({ crew, onChange }: CrewEditorProps) {
                 onChange={(e) => updateMember(member.id, { wounds: Number(e.target.value) })}
               />
             </label>
+            <label className={styles.fieldGroup}>
+              Max Wounds
+              <input
+                type="number"
+                value={member.maxWounds}
+                onChange={(e) => updateMember(member.id, { maxWounds: Number(e.target.value) })}
+              />
+            </label>
             <label className={`${styles.fieldGroup} ${styles.span2}`}>
               Condition
               <input
@@ -107,6 +117,19 @@ export function CrewEditor({ crew, onChange }: CrewEditorProps) {
                 value={member.portraitUrl}
                 onChange={(e) => updateMember(member.id, { portraitUrl: e.target.value })}
               />
+            </label>
+            <label className={styles.fieldGroup}>
+              Status
+              <select
+                value={member.status}
+                onChange={(e) =>
+                  updateMember(member.id, { status: e.target.value as CrewMember['status'] })
+                }
+              >
+                <option value="active">Active</option>
+                <option value="mia">MIA</option>
+                <option value="deceased">Deceased</option>
+              </select>
             </label>
           </div>
 

@@ -52,7 +52,8 @@
   grid-column: span 2;
 }
 
-.fields input {
+.fields input,
+.fields select {
   background: var(--crt-black);
   border: 1px solid var(--crt-green-dim);
   border-radius: 4px;
@@ -65,7 +66,8 @@
   letter-spacing: normal;
 }
 
-.fields input:focus {
+.fields input:focus,
+.fields select:focus {
   outline: none;
   border-color: var(--crt-green);
 }
