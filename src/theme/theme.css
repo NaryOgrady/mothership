@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --crt-black: #010602;
+  --crt-bg: #030a04;
+  --crt-green: #6bffa0;
+  --crt-green-bright: #b9ffce;
+  --crt-green-dim: #2f8f57;
+  --crt-green-dimmer: #184d2e;
+  --crt-glow: rgba(107, 255, 160, 0.65);
+  --crt-red: #ff5c4d;
+  --crt-amber: #ffc95c;
+  --mono: 'Share Tech Mono', ui-monospace, 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--crt-black);
+  color: var(--crt-green);
+  font-family: var(--mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--crt-green);
+  color: var(--crt-black);
+}
+
+/* CRT screen surface: scanlines + vignette + faint flicker, applied per-screen */
+.crt-screen {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 50% 40%, #0a1a0c 0%, var(--crt-bg) 60%, var(--crt-black) 100%);
+  color: var(--crt-green);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.crt-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 1px,
+    rgba(0, 0, 0, 0.25) 2px,
+    rgba(0, 0, 0, 0) 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+.crt-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+@keyframes crt-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.94;
+  }
+  94% {
+    opacity: 1;
+  }
+}
+
+.crt-glow-text {
+  text-shadow:
+    0 0 2px var(--crt-glow),
+    0 0 8px var(--crt-glow);
+}

@@ -1,0 +1,20 @@
+.panel {
+  position: relative;
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgba(107, 255, 160, 0.08) inset,
+    0 0 14px rgba(107, 255, 160, 0.08) inset;
+  padding: 1.1rem 1.3rem;
+}
+
+.title {
+  position: absolute;
+  top: -0.7em;
+  left: 1.4rem;
+  background: var(--crt-black);
+  padding: 0 0.6em;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--crt-green-bright);
+}

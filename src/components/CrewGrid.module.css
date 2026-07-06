@@ -1,0 +1,85 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  align-content: start;
+  padding: 0.4rem;
+}
+
+.card {
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.portrait {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 4px;
+  flex-shrink: 0;
+  filter: grayscale(1) brightness(0.9) sepia(1) hue-rotate(70deg) saturate(3) contrast(1.1);
+}
+
+.portraitPlaceholder {
+  width: 56px;
+  height: 56px;
+  border: 1px dashed var(--crt-green-dimmer);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.className {
+  font-size: 0.8rem;
+  color: var(--crt-green-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.statRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  border-top: 1px dashed var(--crt-green-dimmer);
+  padding-top: 0.3rem;
+}
+
+.warning {
+  color: var(--crt-amber);
+}
+
+.critical {
+  color: var(--crt-red);
+  font-weight: bold;
+}
+
+.condition {
+  font-size: 0.8rem;
+  color: var(--crt-green-bright);
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+.empty {
+  color: var(--crt-green-dim);
+  font-size: 1rem;
+  padding: 1rem;
+}
