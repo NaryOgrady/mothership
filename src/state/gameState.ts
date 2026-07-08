@@ -34,6 +34,8 @@ export interface ShipInfo {
 interface BasePage {
   id: string;
   title: string;
+  /** When true, the page is excluded from the Player View entirely (nav + content) so the GM can prep it in advance. */
+  hidden?: boolean;
 }
 
 interface BaseContentPage extends BasePage {
@@ -142,6 +144,13 @@ export function addChildPage(pages: GamePage[], parentId: string, child: GamePag
     }
     return page;
   });
+}
+
+/** Recursively strips hidden pages (and hidden children of visible menus) for player-facing views. */
+export function visiblePages(pages: GamePage[]): GamePage[] {
+  return pages
+    .filter((page) => !page.hidden)
+    .map((page) => (page.type === 'menu' ? { ...page, children: visiblePages(page.children) } : page));
 }
 
 /** True if `id` is this page or, for a menu, appears anywhere among its descendants. */

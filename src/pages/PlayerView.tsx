@@ -6,7 +6,7 @@ import { CrewGrid } from '../components/CrewGrid';
 import { ShipDisplay } from '../components/ShipDisplay';
 import { ImageDisplay } from '../components/ImageDisplay';
 import { useGameState } from '../state/useGameState';
-import { flattenForNav, pageContainsId } from '../state/gameState';
+import { flattenForNav, pageContainsId, visiblePages } from '../state/gameState';
 import styles from './PlayerView.module.css';
 
 function LogoMark() {
@@ -30,7 +30,7 @@ function DiamondMark() {
 
 export function PlayerView() {
   const { state } = useGameState();
-  const navEntries = flattenForNav(state.pages);
+  const navEntries = flattenForNav(visiblePages(state.pages));
   const activePage = navEntries.find(({ page }) => page.id === state.activePageId)?.page ?? null;
   const contentFontScale =
     activePage && activePage.type !== 'menu' && activePage.type !== 'image'

@@ -188,9 +188,10 @@ export function GMPanel() {
                 type="button"
                 className={`${styles.tab} ${activePath[level] === page.id ? styles.tabActive : ''} ${
                   page.type === 'menu' ? styles.tabMenu : ''
-                }`}
+                } ${page.hidden ? styles.tabHidden : ''}`}
                 onClick={() => selectAt(level, page.id)}
               >
+                {page.hidden ? '◌ ' : ''}
                 {page.title}
               </button>
             ))}
@@ -255,9 +256,10 @@ export function GMPanel() {
                           state.activePageId && pageContainsId(page, state.activePageId)
                             ? styles.navMenuHeaderActive
                             : ''
-                        }`}
+                        } ${page.hidden ? styles.navItemHidden : ''}`}
                       >
                         {connector && <span className={styles.treeConnector}>{connector}</span>}
+                        {page.hidden ? '◌ ' : ''}
                         {page.title}
                       </div>
                     ) : depth > 0 ? (
@@ -266,16 +268,17 @@ export function GMPanel() {
                         type="button"
                         className={`${styles.navSubItem} ${
                           state.activePageId === page.id ? styles.navSubItemActive : ''
-                        }`}
+                        } ${page.hidden ? styles.navItemHidden : ''}`}
                         onClick={() => setActivePage(page.id)}
                       >
                         <span className={styles.treeConnector}>{connector}</span>
+                        {page.hidden ? '◌ ' : ''}
                         {page.title}
                       </button>
                     ) : (
                       <ModeButton
                         key={page.id}
-                        label={page.title}
+                        label={`${page.hidden ? '◌ ' : ''}${page.title}`}
                         active={state.activePageId === page.id}
                         onClick={() => setActivePage(page.id)}
                       />
@@ -331,6 +334,14 @@ export function GMPanel() {
                     type="text"
                     value={selected.title}
                     onChange={(e) => updatePage(selected.id, { title: e.target.value })}
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label>Visibility</label>
+                  <ModeButton
+                    label={selected.hidden ? 'Hidden from players' : 'Visible to players'}
+                    active={!selected.hidden}
+                    onClick={() => updatePage(selected.id, { hidden: !selected.hidden })}
                   />
                 </div>
                 <button

@@ -164,6 +164,16 @@
   border-style: solid;
 }
 
+.tabHidden {
+  opacity: 0.55;
+  font-style: italic;
+}
+
+.navItemHidden {
+  opacity: 0.55;
+  font-style: italic;
+}
+
 .navMenuHeader {
   border: 1px solid var(--crt-green-dim);
   border-radius: 4px;
