@@ -20,6 +20,12 @@
   margin: 0;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .openButton {
   background: var(--crt-green);
   color: var(--crt-black);
@@ -30,6 +36,22 @@
   font-weight: bold;
   cursor: pointer;
   letter-spacing: 0.05em;
+}
+
+.secondaryButton {
+  background: transparent;
+  color: var(--crt-green);
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 4px;
+  padding: 0.6em 1.2em;
+  font-family: var(--mono);
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+.secondaryButton:hover {
+  border-color: var(--crt-green);
 }
 
 .grid {
@@ -95,6 +117,16 @@
   gap: 0.5rem;
 }
 
+.rootLevel {
+  margin-bottom: 1.5rem;
+}
+
+.nestedLevel {
+  margin: 1.2rem 0 1.5rem 1.5rem;
+  padding-left: 1.2rem;
+  border-left: 2px dashed var(--crt-green-dim);
+}
+
 .tabBar {
   display: flex;
   gap: 0.4rem;
@@ -124,6 +156,71 @@
   font-weight: bold;
 }
 
+.tabMenu {
+  border-style: dashed;
+}
+
+.tabMenu.tabActive {
+  border-style: solid;
+}
+
+.navMenuHeader {
+  border: 1px solid var(--crt-green-dim);
+  border-radius: 4px;
+  padding: 0.55em 1em;
+  color: var(--crt-green-dim);
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+}
+
+.navMenuHeaderActive {
+  background: var(--crt-green);
+  border-color: var(--crt-green);
+  color: var(--crt-black);
+}
+
+.navSubItem {
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--crt-green-dim);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding: 0.4em 0.6em;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+}
+
+.navSubItemActive {
+  color: var(--crt-green-bright);
+  font-weight: bold;
+  border-left-color: var(--crt-green);
+}
+
+.treeConnector {
+  white-space: pre;
+  color: var(--crt-green-dim);
+  opacity: 0.7;
+}
+
+.addPageSelect {
+  background: transparent;
+  border: 1px dashed var(--crt-green-dim);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  color: var(--crt-green-dim);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  padding: 0.5em 0.8em;
+  cursor: pointer;
+  transform: translateY(1px);
+}
+
 .pageEditor {
   display: flex;
   flex-direction: column;
@@ -133,5 +230,29 @@
 .pageEditor textarea {
   min-height: 320px;
   resize: vertical;
+}
+
+.pageEditorHeader {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.removePageButton {
+  background: transparent;
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+  border-radius: 4px;
+  padding: 0.6em 1em;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.removePageButton:hover {
+  background: #ff6b6b;
+  color: var(--crt-black);
 }
 

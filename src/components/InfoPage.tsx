@@ -1,7 +1,11 @@
-import type { PageContent } from '../state/gameState';
 import styles from './InfoPage.module.css';
 
-export function InfoPage({ title, body }: PageContent) {
+interface InfoPageProps {
+  title: string;
+  body: string;
+}
+
+export function InfoPage({ title, body }: InfoPageProps) {
   return (
     <div className={styles.page}>
       <div className={`${styles.title} crt-glow-text`}>{title}</div>

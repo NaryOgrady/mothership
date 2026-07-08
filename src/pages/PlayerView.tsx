@@ -4,8 +4,9 @@ import { ModeButton } from '../components/ModeButton';
 import { InfoPage } from '../components/InfoPage';
 import { CrewGrid } from '../components/CrewGrid';
 import { ShipDisplay } from '../components/ShipDisplay';
+import { ImageDisplay } from '../components/ImageDisplay';
 import { useGameState } from '../state/useGameState';
-import { PAGE_IDS } from '../state/gameState';
+import { flattenForNav, pageContainsId } from '../state/gameState';
 import styles from './PlayerView.module.css';
 
 function LogoMark() {
@@ -29,7 +30,12 @@ function DiamondMark() {
 
 export function PlayerView() {
   const { state } = useGameState();
-  const contentFontScale = state.activePage ? state.pages[state.activePage].fontScale : state.fontScale;
+  const navEntries = flattenForNav(state.pages);
+  const activePage = navEntries.find(({ page }) => page.id === state.activePageId)?.page ?? null;
+  const contentFontScale =
+    activePage && activePage.type !== 'menu' && activePage.type !== 'image'
+      ? activePage.fontScale
+      : state.fontScale;
 
   return (
     <div className={`crt-screen ${styles.screen} ${state.screenFlipped ? styles.flipped : ''}`}>
@@ -67,20 +73,46 @@ export function PlayerView() {
       <div className={styles.body}>
         <Panel className={styles.leftPanel}>
           <div className={styles.navList}>
-            {PAGE_IDS.map((id) => (
-              <ModeButton key={id} label={state.pages[id].title} active={state.activePage === id} />
-            ))}
+            {navEntries.map(({ page, depth, connector }) =>
+              page.type === 'menu' ? (
+                <div
+                  key={page.id}
+                  className={`${styles.navMenuHeader} ${
+                    state.activePageId && pageContainsId(page, state.activePageId)
+                      ? styles.navMenuHeaderActive
+                      : ''
+                  }`}
+                >
+                  {connector && <span className={styles.treeConnector}>{connector}</span>}
+                  {page.title}
+                </div>
+              ) : depth > 0 ? (
+                <div
+                  key={page.id}
+                  className={`${styles.navSubItem} ${
+                    state.activePageId === page.id ? styles.navSubItemActive : ''
+                  }`}
+                >
+                  <span className={styles.treeConnector}>{connector}</span>
+                  {page.title}
+                </div>
+              ) : (
+                <ModeButton key={page.id} label={page.title} active={state.activePageId === page.id} />
+              ),
+            )}
           </div>
         </Panel>
 
         <Panel className={styles.centerPanel}>
           <div className={styles.contentScale} style={{ fontSize: `${contentFontScale}rem` }}>
-            {state.activePage === 'crew' ? (
-              <CrewGrid crew={state.crew} />
-            ) : state.activePage === 'ship' ? (
-              <ShipDisplay ship={state.ship} info={state.pages.ship.body} />
-            ) : state.activePage ? (
-              <InfoPage {...state.pages[state.activePage]} />
+            {activePage?.type === 'characterList' ? (
+              <CrewGrid crew={activePage.crew} />
+            ) : activePage?.type === 'ship' ? (
+              <ShipDisplay ship={activePage.ship} info={activePage.body} />
+            ) : activePage?.type === 'text' ? (
+              <InfoPage title={activePage.title} body={activePage.body} />
+            ) : activePage?.type === 'image' ? (
+              <ImageDisplay imageUrl={activePage.imageUrl} greenFilter={activePage.greenFilter} />
             ) : state.mapImageUrl ? (
               <img src={state.mapImageUrl} alt="" className={styles.mapImage} />
             ) : (
