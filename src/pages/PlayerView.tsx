@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Panel } from '../components/Panel';
 import { CoursePlot } from '../components/CoursePlot';
 import { ModeButton } from '../components/ModeButton';
@@ -28,8 +29,31 @@ function DiamondMark() {
   );
 }
 
+function randomInRange(min: number, max: number) {
+  return min + Math.random() * (max - min);
+}
+
+/**
+ * One sweep of the CRT distortion line, plus a randomized pause before the
+ * next one, so the roll doesn't feel like a metronome.
+ */
+function useDistortionPass() {
+  const [pass, setPass] = useState(() => ({ id: 0, duration: randomInRange(3.5, 6.5) }));
+
+  useEffect(() => {
+    const gap = randomInRange(10, 25) * 1000;
+    const timer = setTimeout(() => {
+      setPass((p) => ({ id: p.id + 1, duration: randomInRange(3.5, 6.5) }));
+    }, pass.duration * 1000 + gap);
+    return () => clearTimeout(timer);
+  }, [pass]);
+
+  return pass;
+}
+
 export function PlayerView() {
   const { state } = useGameState();
+  const distortionPass = useDistortionPass();
   const navEntries = flattenForNav(visiblePages(state.pages));
   const activePage = navEntries.find(({ page }) => page.id === state.activePageId)?.page ?? null;
   const contentFontScale =
@@ -39,6 +63,11 @@ export function PlayerView() {
 
   return (
     <div className={`crt-screen ${styles.screen} ${state.screenFlipped ? styles.flipped : ''}`}>
+      <div
+        key={distortionPass.id}
+        className="crt-distortion-line"
+        style={{ animationDuration: `${distortionPass.duration}s` }}
+      />
       <div className={styles.header}>
         <div className={styles.headerBar}>
           <div className={styles.logo}>
